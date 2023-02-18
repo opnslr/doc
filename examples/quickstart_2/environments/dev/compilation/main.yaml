@@ -1,0 +1,54 @@
+chains:
+- name: CompileThings
+  desc: Nightly builds
+  deps:
+  - kind: time
+    time: 16:30
+  tasks:
+  - name: GetNewRelease
+  - name: Compile
+
+- name: AutomatedTests
+  deps:
+  - kind: chain
+    depends_on: CompileThings
+  tasks:
+  - name: HappyPath
+  - name: LoadTesting
+
+- name: RollbackThings
+  desc: If something goes wrong rollback to previous version
+  deps:
+  - kind: chain
+    depends_on: CompileThings
+    status: Failed
+  tasks:
+  - name: SendReport
+  - name: Rollback
+
+tasks:
+- name: GetNewRelease
+  kind: CMD
+  command: git pull
+  cwd: $project_dir
+
+- name: Compile
+  kind: CMD
+  command: make
+  cwd: $project_dir
+
+- name: SendReport
+  kind: CMD
+  command: sleep 1
+
+- name: Rollback
+  kind: SHELL
+  command: date ; echo "Rolling back"
+
+- name: HappyPath
+  kind: CMD
+  command: sleep 8
+
+- name: LoadTesting
+  kind: CMD
+  command: sleep 13

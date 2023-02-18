@@ -1,0 +1,18 @@
+---
+#TODO: rc_ok, variables demo, tasks in environment/*
+# subdirs
+tasks:
+- name: SleepTask
+  kind: CMD
+  command: sleep $sleep_time
+  variables:
+    sleep_time: 8
+
+- name: OtherSleepTask
+  kind: CMD
+  command: sleep $other_sleep_time
+
+- name: CheckSecurity
+  kind: SHELL
+  command: ls -lR /root
+  rc_ok: 2 # Specify which return code means Success

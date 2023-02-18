@@ -1,0 +1,4 @@
+variables:
+  sleep_time: 34
+  other_sleep_time: 21
+  project_dir: /tmp/toto

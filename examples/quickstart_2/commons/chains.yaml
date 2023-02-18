@@ -1,0 +1,40 @@
+---
+chains:
+- name: InitChain
+  tasks:
+  - SleepTask
+  - OtherSleepTask
+
+- name: ParallelChain_1
+  tasks:
+  - name: SleepTask
+    variables:
+      sleep_time: 5
+  - OtherSleepTask
+  variables:
+    sleep_time: 5
+  deps:
+  - kind: chain
+    depends_on:
+    - InitChain
+
+- name: ParallelChain_2
+  deps:
+  - kind: chain
+    depends_on: FirstInitChain
+  tasks:
+  - SleepTask
+  - CheckSecurity
+  deps:
+  - kind: chain
+    depends_on: InitChain
+
+- name: LastChain
+  tasks:
+  - SleepTask
+  - OtherSleepTask
+  deps:
+  - kind: chain
+    depends_on:
+    - ParallelChain_1
+    - ParallelChain_2

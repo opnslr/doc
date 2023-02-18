@@ -1,0 +1,24 @@
+---
+# Easy Plan is a simple independant plan showing basic concepts
+
+chains: # Chains definitions
+# A Chain must declare a name,and at least one task.
+- name: FirstChain
+  tasks:
+  - FirstTask  # This task references a task definition by its name
+  - SecondTask # Another one
+  - name: ThirdTask_Inline # This task is defined inline, just for this chain.
+    kind: CMD
+    command: sleep 5
+
+
+tasks: # Tasks definitions
+- name: FirstTask # A task definition must have at least a name, a kind, and specific attibutes for this kind
+  kind: CMD # CMD is a kind of task which will execute a command:
+  command: sleep 2 #The first term is the executable command, optionnaly followed by some arguments
+- name: SecondTask
+  kind: CMD
+  command: uptime
+  deps: # A dep defines a dependecy. The object (chain or task) will start after the deps are resolved. 
+  - kind: time # A time dep is resolved after the defined time
+    time: 17:44  # In this simple case, the object will start today after 17:44
