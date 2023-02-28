@@ -28,7 +28,7 @@ Scheduling as code!
 Les définitions sont décrites en YAML et l'architecture des définitions permet une grande souplesse. Il est prévu pour être maintenu via un repo Git.
 
 Fonctionnement général
-======================
+**********************
 
 - Un ``Builder`` produit des plans à la demande et sur mesure.
 - Un ``Plan`` contient les actions à exécuter, les conditions et autres paramètres.
@@ -40,7 +40,7 @@ Exemple d'un plan :
 .. image:: images/plan1.png
 
 Tutoriel
-========
+********
 
 Après installation du builder et du runner, suivre les étapes suivantes.
 
